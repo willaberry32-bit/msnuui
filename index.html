@@ -137,20 +137,6 @@ h1{
 
 </div>
 
-<script>
-const loader = document.getElementById("loader");
-const form = document.getElementById("loginForm");
-
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  // purely visual loader
-  loader.style.width = "30%";
-  setTimeout(() => loader.style.width = "70%", 200);
-  setTimeout(() => loader.style.width = "100%", 400);
-  setTimeout(() => loader.style.width = "0%", 700);
-});
-</script>
 
 </body>
 </html>
